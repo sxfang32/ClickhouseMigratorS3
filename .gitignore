@@ -1,2 +1,7 @@
 ./ARCHITECTURE.md
 ./IMPLEMENTATION_SUMMARY.md
+./migration_progress.json
+./locks/
+./reports/
+./logs/
+.idea/
