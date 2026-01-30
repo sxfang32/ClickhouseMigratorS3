@@ -228,5 +228,4 @@ clickhouse-migrator --mode single --db default --table test_table
 - **日志管理器**：管理系统日志
 - **进程锁管理器**：管理表迁移的进程锁，防止并发操作
 
-详细架构设计请参考 [ARCHITECTURE.md](ARCHITECTURE.md) 文件。
 
