@@ -1,0 +1,40 @@
+2026-01-30 16:33:35 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:29 - ==================================================
+2026-01-30 16:33:35 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:30 - 开始ClickHouse表迁移到S3存储策略
+2026-01-30 16:33:35 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:31 - 迁移模式：single，目标数据库：tmp
+2026-01-30 16:33:35 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:33 - 目标表：tmp_continue_cpmplete_quality_book_detail
+2026-01-30 16:33:35 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:34 - ==================================================
+2026-01-30 16:33:36 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:44 - ClickHouse连接成功
+2026-01-30 16:33:37 - clickhouse_migrator.clients.ch_client - INFO - ch_client.py:44 - 开始验证存储策略s3的可用性...
+2026-01-30 16:33:37 - clickhouse_migrator.clients.ch_client - INFO - ch_client.py:59 - S3存储策略s3验证通过（存在且可用）
+2026-01-30 16:33:37 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:52 - 断点续传状态：禁用
+2026-01-30 16:33:37 - clickhouse_migrator.services.migration - INFO - migration.py:407 - 获取表tmp.tmp_continue_cpmplete_quality_book_detail迁移锁成功
+2026-01-30 16:33:37 - clickhouse_migrator.services.migration - INFO - migration.py:410 - 开始迁移表：tmp.tmp_continue_cpmplete_quality_book_detail
+2026-01-30 16:33:38 - clickhouse_migrator.services.migration - DEBUG - migration.py:43 - 获取到tmp.tmp_continue_cpmplete_quality_book_detail的建表语句：CREATE TABLE tmp.tmp_continue_cpmplete_quality_book_detail ( `date_dt_quarter` Date, `agent_id` String, `book_id` String, `lang` String, `nick_name` Nullable(String), `agent_name` String, `department` Nullable(String), `is_compelete_s_more_5d` Nullable(String), `is_compelete_a_more_5d` Nullable(String) ) ENGINE = MergeTree PARTITION BY date_dt_quarter ORDER BY date_dt_quarter SETTINGS index_granularity = 8192
+2026-01-30 16:33:38 - clickhouse_migrator.services.migration - DEBUG - migration.py:419 - 备份表建表语句：CREATE TABLE tmp.tmp_continue_cpmplete_quality_book_detail_backup_s3 ( `date_dt_quarter` Date, `agent_id` String, `book_id` String, `lang` String, `nick_name` Nullable(String), `agent_name` String, `department` Nullable(String), `is_compelete_s_more_5d` Nullable(String), `is_compelete_a_more_5d` Nullable(String) ) ENGINE = MergeTree PARTITION BY date_dt_quarter ORDER BY date_dt_quarter SETTINGS index_granularity = 8192, storage_policy = 's3'
+2026-01-30 16:33:38 - clickhouse_migrator.services.migration - INFO - migration.py:430 - 创建备份表成功：tmp.tmp_continue_cpmplete_quality_book_detail_backup_s3
+2026-01-30 16:33:39 - clickhouse_migrator.services.migration - INFO - migration.py:445 - 表tmp.tmp_continue_cpmplete_quality_book_detail的分区键：date_dt_quarter
+2026-01-30 16:33:39 - clickhouse_migrator.services.migration - INFO - migration.py:450 - 待迁移分区数：2，分区列表：['2025-04-01', '2025-07-01']
+2026-01-30 16:33:39 - clickhouse_migrator.services.migration - INFO - migration.py:464 - tmp.tmp_continue_cpmplete_quality_book_detail总数据量：356行
+2026-01-30 16:33:39 - clickhouse_migrator.services.migration - INFO - migration.py:468 - 开始迁移分区：[1/2]：2025-04-01
+2026-01-30 16:33:41 - clickhouse_migrator.services.migration - INFO - migration.py:496 - 分区2025-04-01校验通过，原始条数：177，迁移条数：177，耗时1.76秒
+2026-01-30 16:33:41 - clickhouse_migrator.services.migration - DEBUG - migration.py:501 - 删除分区SQL：ALTER TABLE tmp.tmp_continue_cpmplete_quality_book_detail DROP PARTITION '2025-04-01'
+2026-01-30 16:33:41 - clickhouse_migrator.services.migration - INFO - migration.py:503 - 源表分区2025-04-01数据已删除
+
+2026-01-30 16:33:41 - clickhouse_migrator.services.migration - INFO - migration.py:468 - 开始迁移分区：[2/2]：2025-07-01
+2026-01-30 16:33:43 - clickhouse_migrator.services.migration - INFO - migration.py:496 - 分区2025-07-01校验通过，原始条数：179，迁移条数：179，耗时1.76秒
+2026-01-30 16:33:43 - clickhouse_migrator.services.migration - DEBUG - migration.py:501 - 删除分区SQL：ALTER TABLE tmp.tmp_continue_cpmplete_quality_book_detail DROP PARTITION '2025-07-01'
+2026-01-30 16:33:43 - clickhouse_migrator.services.migration - INFO - migration.py:503 - 源表分区2025-07-01数据已删除
+
+2026-01-30 16:33:43 - clickhouse_migrator.services.migration - INFO - migration.py:511 - 开始全表数据校验
+2026-01-30 16:33:43 - clickhouse_migrator.services.migration - INFO - migration.py:518 - 全表数据校验通过，原表行数：356，迁移后行数：356
+2026-01-30 16:33:43 - clickhouse_migrator.services.migration - INFO - migration.py:521 - 开始替换源表
+2026-01-30 16:33:44 - clickhouse_migrator.services.migration - INFO - migration.py:524 - 表tmp.tmp_continue_cpmplete_quality_book_detail迁移完成，已切换到S3存储策略
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:68 - 迁移报告已生成：./reports/clickhouse_s3_migration_report_20260130_163344.json
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:70 - ==================================================
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:71 - 迁移汇总：
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:72 - 总表数：1
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:73 - 成功：1
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:74 - 失败：0
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:75 - 跳过：0
+2026-01-30 16:33:44 - clickhouse_migrator.services.report - INFO - report.py:81 - ==================================================
+2026-01-30 16:33:44 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:79 - 所有表迁移成功完成！

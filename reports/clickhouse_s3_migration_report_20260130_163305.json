@@ -1,0 +1,39 @@
+{
+  "migration_info": {
+    "mode": "single",
+    "database": "tmp",
+    "table": "tmp_short_content_id_upshelf_date_jarvis",
+    "start_time": "2026-01-30 16:33:05",
+    "s3_policy": "s3",
+    "clickhouse_config": {
+      "host": "172.31.168.96",
+      "port": 8123,
+      "user": "default"
+    }
+  },
+  "results": [
+    {
+      "table": "tmp_short_content_id_upshelf_date_jarvis",
+      "start_time": "2026-01-30 16:33:03",
+      "end_time": "2026-01-30 16:33:05",
+      "status": "failed",
+      "total_partitions": 0,
+      "completed_partitions": 0,
+      "total_rows": 0,
+      "migrated_rows": 0,
+      "error": "迁移表tmp.tmp_short_content_id_upshelf_date_jarvis失败：获取tmp.tmp_short_content_id_upshelf_date_jarvis分区键失败：表tmp.tmp_short_content_id_upshelf_date_jarvis未配置分区键（PARTITION BY），无法按分区迁移\nTraceback (most recent call last):\n  File \"/Users/jarvis/Documents/ClickhouseMigratorS3/clickhouse_migrator/services/partition.py\", line 19, in get_table_partition_key\n    raise RuntimeError(f\"表{db}.{table}未配置分区键（PARTITION BY），无法按分区迁移\")\nRuntimeError: 表tmp.tmp_short_content_id_upshelf_date_jarvis未配置分区键（PARTITION BY），无法按分区迁移\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/jarvis/Documents/ClickhouseMigratorS3/clickhouse_migrator/services/migration.py\", line 444, in migrate_single_table\n    partition_key = self.partition_manager.get_table_partition_key(client, db, table)\n  File \"/Users/jarvis/Documents/ClickhouseMigratorS3/clickhouse_migrator/services/partition.py\", line 27, in get_table_partition_key\n    raise RuntimeError(f\"获取{db}.{table}分区键失败：{str(e)}\")\nRuntimeError: 获取tmp.tmp_short_content_id_upshelf_date_jarvis分区键失败：表tmp.tmp_short_content_id_upshelf_date_jarvis未配置分区键（PARTITION BY），无法按分区迁移\n",
+      "check_results": []
+    }
+  ],
+  "summary": {
+    "total_tables": 1,
+    "completed_tables": 0,
+    "failed_tables": 1,
+    "skipped_tables": 0,
+    "distributed_tables": {
+      "total_local_tables": 0,
+      "completed_local_tables": 0,
+      "failed_local_tables": 0
+    }
+  }
+}

@@ -1,0 +1,39 @@
+2026-01-30 16:33:01 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:29 - ==================================================
+2026-01-30 16:33:01 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:30 - 开始ClickHouse表迁移到S3存储策略
+2026-01-30 16:33:01 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:31 - 迁移模式：single，目标数据库：tmp
+2026-01-30 16:33:01 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:33 - 目标表：tmp_short_content_id_upshelf_date_jarvis
+2026-01-30 16:33:01 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:34 - ==================================================
+2026-01-30 16:33:03 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:44 - ClickHouse连接成功
+2026-01-30 16:33:03 - clickhouse_migrator.clients.ch_client - INFO - ch_client.py:44 - 开始验证存储策略s3的可用性...
+2026-01-30 16:33:03 - clickhouse_migrator.clients.ch_client - INFO - ch_client.py:59 - S3存储策略s3验证通过（存在且可用）
+2026-01-30 16:33:03 - clickhouse_migrator.orchestrator - INFO - orchestrator.py:52 - 断点续传状态：禁用
+2026-01-30 16:33:03 - clickhouse_migrator.services.migration - INFO - migration.py:407 - 获取表tmp.tmp_short_content_id_upshelf_date_jarvis迁移锁成功
+2026-01-30 16:33:03 - clickhouse_migrator.services.migration - INFO - migration.py:410 - 开始迁移表：tmp.tmp_short_content_id_upshelf_date_jarvis
+2026-01-30 16:33:04 - clickhouse_migrator.services.migration - DEBUG - migration.py:43 - 获取到tmp.tmp_short_content_id_upshelf_date_jarvis的建表语句：CREATE TABLE tmp.tmp_short_content_id_upshelf_date_jarvis ( `id` String, `upshelf_date` String ) ENGINE = MergeTree ORDER BY id SETTINGS index_granularity = 8192
+2026-01-30 16:33:04 - clickhouse_migrator.services.migration - DEBUG - migration.py:419 - 备份表建表语句：CREATE TABLE tmp.tmp_short_content_id_upshelf_date_jarvis_backup_s3 ( `id` String, `upshelf_date` String ) ENGINE = MergeTree ORDER BY id SETTINGS index_granularity = 8192, storage_policy = 's3'
+2026-01-30 16:33:04 - clickhouse_migrator.services.migration - INFO - migration.py:430 - 创建备份表成功：tmp.tmp_short_content_id_upshelf_date_jarvis_backup_s3
+2026-01-30 16:33:05 - clickhouse_migrator.services.migration - ERROR - migration.py:533 - 迁移表tmp.tmp_short_content_id_upshelf_date_jarvis失败：获取tmp.tmp_short_content_id_upshelf_date_jarvis分区键失败：表tmp.tmp_short_content_id_upshelf_date_jarvis未配置分区键（PARTITION BY），无法按分区迁移
+Traceback (most recent call last):
+  File "/Users/jarvis/Documents/ClickhouseMigratorS3/clickhouse_migrator/services/partition.py", line 19, in get_table_partition_key
+    raise RuntimeError(f"表{db}.{table}未配置分区键（PARTITION BY），无法按分区迁移")
+RuntimeError: 表tmp.tmp_short_content_id_upshelf_date_jarvis未配置分区键（PARTITION BY），无法按分区迁移
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jarvis/Documents/ClickhouseMigratorS3/clickhouse_migrator/services/migration.py", line 444, in migrate_single_table
+    partition_key = self.partition_manager.get_table_partition_key(client, db, table)
+  File "/Users/jarvis/Documents/ClickhouseMigratorS3/clickhouse_migrator/services/partition.py", line 27, in get_table_partition_key
+    raise RuntimeError(f"获取{db}.{table}分区键失败：{str(e)}")
+RuntimeError: 获取tmp.tmp_short_content_id_upshelf_date_jarvis分区键失败：表tmp.tmp_short_content_id_upshelf_date_jarvis未配置分区键（PARTITION BY），无法按分区迁移
+
+2026-01-30 16:33:05 - clickhouse_migrator.services.migration - WARNING - migration.py:538 - 恢复建议：1. 检查备份表tmp.tmp_short_content_id_upshelf_date_jarvis_backup_s3数据完整性；2. 修复错误后使用--resume参数续传；3. 若数据损坏，从ClickHouse备份恢复源表
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:68 - 迁移报告已生成：./reports/clickhouse_s3_migration_report_20260130_163305.json
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:70 - ==================================================
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:71 - 迁移汇总：
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:72 - 总表数：1
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:73 - 成功：0
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:74 - 失败：1
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:75 - 跳过：0
+2026-01-30 16:33:05 - clickhouse_migrator.services.report - INFO - report.py:81 - ==================================================
+2026-01-30 16:33:05 - clickhouse_migrator.orchestrator - ERROR - orchestrator.py:76 - 迁移完成，但有1个表迁移失败
