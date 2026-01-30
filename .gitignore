@@ -1,6 +1,8 @@
 ./ARCHITECTURE.md
 ./IMPLEMENTATION_SUMMARY.md
 ./migration_progress.json
+.DS_Store
+.gitignore
 ./locks/
 ./reports/
 ./logs/
